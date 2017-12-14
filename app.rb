@@ -18,7 +18,7 @@ helpers do
   end
 
   def title
-    "Passenger App Processes"
+    "SLURM Accounting Log"
   end
 end
 
