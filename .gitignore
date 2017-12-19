@@ -1,3 +1,6 @@
 # Keep tmp/ but ignore files underneath
 /tmp/*
 !/tmp/.keep
+
+# Don't version the dependencies
+vendor/bundle
