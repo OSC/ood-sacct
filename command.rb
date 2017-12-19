@@ -2,17 +2,17 @@ require 'open3'
 
 class Command
   def to_s
-    "ps aux | grep '[A]pp'"
+    "sacct -a"
   end
 
-  AppProcess = Struct.new(:user, :pid, :pct_cpu, :pct_mem, :vsz, :rss, :tty, :stat, :start, :time, :command)
+  AppProcess = Struct.new(:jobid, :jobname, :partition, :account, :cpus, :state, :exit_code)
 
   # Parse a string output from the `ps aux` command and return an array of
   # AppProcess objects, one per process
   def parse(output)
-    lines = output.strip.split("\n")
+    lines = output.strip.split("\n").drop(2)
     lines.map do |line|
-      AppProcess.new(*(line.split(" ", 11)))
+      AppProcess.new(*(line.split(" ", 7).collect(&:strip)))
     end
   end
 
