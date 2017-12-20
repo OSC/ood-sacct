@@ -5,21 +5,21 @@ class Command
     "sacct -a"
   end
 
-  AppProcess = Struct.new(:jobid, :jobname, :partition, :account, :cpus, :state, :exit_code)
+  JobInfo = Struct.new(:jobid, :jobname, :partition, :account, :cpus, :state, :exit_code)
 
-  # Parse a string output from the `ps aux` command and return an array of
-  # AppProcess objects, one per process
+  # Parse a string output from the `sacct` command and return an array of
+  # JobInfo objects, one per lines
   def parse(output)
     lines = output.strip.split("\n").drop(2)
     lines.map do |line|
-      AppProcess.new(*(line.split(" ", 7).collect(&:strip)))
+      JobInfo.new(*(line.split(" ", 7).collect(&:strip)))
     end
   end
 
   # Execute the command, and parse the output, returning and array of
-  # AppProcesses and nil for the error string.
+  # JobInfo and nil for the error string.
   #
-  # returns [Array<Array<AppProcess>, String] i.e.[processes, error]
+  # returns [Array<Array<JobInfo>, String] i.e.[info, error]
   def exec
     processes, error = [], nil
 
