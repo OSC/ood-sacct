@@ -3,7 +3,7 @@ require 'open3'
 class Command
   def to_s
     # This command is specific to PSC
-    "/opt/packages/slurm/17.02.5/bin/sacct -a"
+    "/opt/packages/slurm/17.02.5/bin/sacct -a -P"
   end
 
   JobInfo = Struct.new(:jobid, :jobname, :partition, :account, :cpus, :state, :exit_code)
@@ -11,14 +11,9 @@ class Command
   # Parse a string output from the `sacct` command and return an array of
   # JobInfo objects, one per lines
   def parse(output)
-    column_lengths = output.strip.split("\n")[1].split.map {|x| x = x.length}
-    lines = output.strip.split("\n").drop(2)
+    lines = output.strip.split("\n").drop(1)
     lines.map do |line|
-      jobinfo_args = []
-      column_lengths.each do |length|
-        jobinfo_args.push(line.slice!(0..length).strip)
-      end
-      JobInfo.new(*jobinfo_args)
+      JobInfo.new(*(line.split("|", 7)))
     end
   end
 
