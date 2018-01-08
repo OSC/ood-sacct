@@ -18,7 +18,7 @@ helpers do
   end
 
   def title
-    "SLURM Accounting Log"
+    "Completed Jobs"
   end
 end
 
