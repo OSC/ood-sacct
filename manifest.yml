@@ -1,2 +1,2 @@
-name: Passenger App Processes
-description: Display your running Passenger app proceseses in a table
+name: Completed Jobs
+description: Display list of completed jobs via sacct
