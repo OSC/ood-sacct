@@ -18,7 +18,7 @@ $ <%= @command %>
   </tr>
   <% @processes.each do |app| %>
   <tr>
-    <td><%= app.jobid %></td>
+    <td><a href="<%= url("show/") %><%= app.jobid %>"><%= app.jobid %></a></td>
     <td><%= app.jobname %></td>
     <td><%= app.partition %></td>
     <td><%= app.account %></td>

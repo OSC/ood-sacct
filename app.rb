@@ -22,6 +22,14 @@ helpers do
   end
 end
 
+get '/show/:id' do
+  @id = params[:id]
+  @message = "Showing details for #{@id}"
+    
+  # Render the view
+  erb :show
+end    
+
 # Define a route at the root '/' of the app.
 get '/' do
   @command = Command.new
