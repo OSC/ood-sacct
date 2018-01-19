@@ -3,7 +3,8 @@ require 'open3'
 class Command
   def to_s
     # This command is specific to PSC
-    "/opt/packages/slurm/17.02.5/bin/sacct -a -P"
+    # "/opt/packages/slurm/17.02.5/bin/sacct -a -P"
+    "cat test/sacct.txt"
   end
 
   JobInfo = Struct.new(:jobid, :jobname, :partition, :account, :cpus, :state, :exit_code)
