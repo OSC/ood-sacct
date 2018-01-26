@@ -17,28 +17,55 @@
   <pre>$ <%= @command %></pre>
 </div>
 
-<div>
-  <table class="table table-bordered">
-    <tr>
-      <th>JOBID</th>
-      <th>JOBNAME</th>
-      <th>PARTITION</th>
-      <th>ACCOUNT</th>
-      <th>CPU</th>
-      <th>STATE</th>
-      <th>EXIT CODE</th>
-    </tr>
-    <% @processes.each do |app| %>
+<% if @range %>
+  <div>
+    <table class="table table-bordered">
       <tr>
-        <td><a href="<%= url("show/") %><%= app.jobid %>"><%= app.jobid %></a></td>
-        <td><%= app.jobname %></td>
-        <td><%= app.partition %></td>
-        <td><%= app.account %></td>
-        <td><%= app.cpus %></td>
-        <td><%= app.state %></td>
-        <td><%= app.exit_code %></td>
+        <th>USER</th>
+        <th>JOBID</th>
+        <th>JOBNAME</th>
+        <th>START</th>
+        <th>END</th>
+        <th>STATE</th>
       </tr>
-    <% end %>
-  </table>
-</div>
+      <% @processes.each do |app| %>
+        <tr>
+          <td><%= app.user %></td>
+          <td><a href="<%= url("show/") %><%= app.jobid %>"><%= app.jobid %></a></td>
+          <td><%= app.jobname %></td>
+          <td><%= app.start %></td>
+          <td><%= app.end %></td>
+          <td><%= app.state %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+<% else %>
+  <div>
+    <table class="table table-bordered">
+      <tr>
+        <th>JOBID</th>
+        <th>JOBNAME</th>
+        <th>PARTITION</th>
+        <th>ACCOUNT</th>
+        <th>CPU</th>
+        <th>STATE</th>
+        <th>EXIT CODE</th>
+      </tr>
+      <% @processes.each do |app| %>
+        <tr>
+          <td><a href="<%= url("show/") %><%= app.jobid %>"><%= app.jobid %></a></td>
+          <td><%= app.jobname %></td>
+          <td><%= app.partition %></td>
+          <td><%= app.account %></td>
+          <td><%= app.cpus %></td>
+          <td><%= app.state %></td>
+          <td><%= app.exit_code %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+<% end %>
+
+
 

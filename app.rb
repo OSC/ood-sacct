@@ -1,5 +1,6 @@
 require 'erubi'
 require './command'
+require './command_range'
 
 set :erb, :escape_html => true
 
@@ -32,7 +33,14 @@ end
 
 # Define a route at the root '/' of the app.
 get '/' do
-  @command = Command.new
+  if params[:start_date] && params[:end_date]
+    @command = CommandRange.new(params[:start_date], params[:end_date])
+    @range = true
+  else
+    @command = Command.new
+  end
+
+
   @processes, @error = @command.exec
 
   # Render the view
