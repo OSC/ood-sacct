@@ -1,33 +1,36 @@
 <h1><%= title %></h1>
 
-Output generated: <%= Time.now %>
+<div>
+  <span>Output generated: <%= Time.now %></span>
+  <a type="button" class="btn btn-sm btn-default" onClick="window.location.reload()">&#x21bb; Refresh</a>
+</div>
 
-<a type="button" class="btn btn-sm btn-default" onClick="window.location.reload()">&#x21bb; Refresh</a>
+<div>
+  <pre>$ <%= @command %></pre>
+</div>
 
-<pre>
-$ <%= @command %>
-</pre>
+<div>
+  <table class="table table-bordered">
+    <tr>
+      <th>JOBID</th>
+      <th>JOBNAME</th>
+      <th>PARTITION</th>
+      <th>ACCOUNT</th>
+      <th>CPU</th>
+      <th>STATE</th>
+      <th>EXIT CODE</th>
+    </tr>
+    <% @processes.each do |app| %>
+      <tr>
+        <td><a href="<%= url("show/") %><%= app.jobid %>"><%= app.jobid %></a></td>
+        <td><%= app.jobname %></td>
+        <td><%= app.partition %></td>
+        <td><%= app.account %></td>
+        <td><%= app.cpus %></td>
+        <td><%= app.state %></td>
+        <td><%= app.exit_code %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
 
-<table class="table table-bordered">
-  <tr>
-    <th>JOBID</th>
-    <th>JOBNAME</th>
-    <th>PARTITION</th>
-    <th>ACCOUNT</th>
-    <th>CPU</th>
-    <th>STATE</th>
-    <th>EXIT CODE</th>
-  </tr>
-  <% @processes.each do |app| %>
-  <tr>
-    <td><a href="<%= url("show/") %><%= app.jobid %>"><%= app.jobid %></a></td>
-    <td><%= app.jobname %></td>
-    <td><%= app.partition %></td>
-    <td><%= app.account %></td>
-    <td><%= app.cpus %></td>
-    <td><%= app.state %></td>
-    <td><%= app.exit_code %></td>
-  </tr>
-  <% end %>
-
-</table>
