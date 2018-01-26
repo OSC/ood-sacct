@@ -1,11 +1,19 @@
 <h1><%= title %></h1>
 
-<div>
+<div class="pull-right">
+  <form class="form-inline">
+    Start Date: <input class="picker form-control" type="text" name="start_date">
+    End Date: <input class="picker form-control" type="text" name="end_date">
+    <input class="btn btn-primary" type="submit">
+  </form>
+</div>
+
+<div class="row">
   <span>Output generated: <%= Time.now %></span>
   <a type="button" class="btn btn-sm btn-default" onClick="window.location.reload()">&#x21bb; Refresh</a>
 </div>
 
-<div>
+<div class="row">
   <pre>$ <%= @command %></pre>
 </div>
 
