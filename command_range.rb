@@ -39,5 +39,8 @@ class CommandRange
     end
 
     [processes, error]
+
+  rescue => e
+    [processes, e.message]
   end
 end
