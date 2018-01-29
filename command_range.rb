@@ -6,7 +6,7 @@ class CommandRange
   # @param [string] end_datetime The end time in format: 2017-12-11T16:00
   def initialize(start_datetime, end_datetime)
     # This command is specific to PSC
-    @command = "/opt/packages/slurm/17.02.5/bin/sacct -a --starttime #{start_datetime} --endtime #{end_datetime} --format=User,JobID,Jobname,start,end,state -P"
+    @command = "/opt/packages/slurm/17.02.5/bin/sacct -a --starttime #{start_datetime} --endtime #{end_datetime} --format=User,JobID,Jobname,start,end,state -P -s BF,CA,CD,DL,F,NF,PR,TO"
   end
 
   def to_s
