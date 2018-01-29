@@ -20,8 +20,8 @@
 
 <table class="table table-bordered">
   <tr>
-    <th>USER</th>
     <th>JOBID</th>
+    <th>USER</th>
     <th>JOBNAME</th>
     <th>START</th>
     <th>END</th>
@@ -29,8 +29,8 @@
   </tr>
   <% @processes.each do |app| %>
     <tr>
-      <td><%= app.user %></td>
       <td><a href="<%= url("show/") %><%= app.jobid %>"><%= app.jobid %></a></td>
+      <td><%= app.user %></td>
       <td><%= app.jobname %></td>
       <td><%= app.start %></td>
       <td><%= app.end %></td>
