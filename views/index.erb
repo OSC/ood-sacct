@@ -2,8 +2,9 @@
 
 <div class="pull-right">
   <form class="form-inline">
-    Start Date: <input class="picker form-control" type="text" name="start_date">
-    End Date: <input class="picker form-control" type="text" name="end_date">
+    <!-- FIXME: should probably be using input type="date" -->
+    Start Date: <input class="picker form-control" type="text" name="start_date" value="<%= @start_date %>">
+    End Date: <input class="picker form-control" type="text" name="end_date" value="<%= @end_date %>">
     <input class="btn btn-primary" type="submit">
   </form>
 </div>
@@ -17,55 +18,26 @@
   <pre>$ <%= @command %></pre>
 </div>
 
-<% if @range %>
-  <div>
-    <table class="table table-bordered">
-      <tr>
-        <th>USER</th>
-        <th>JOBID</th>
-        <th>JOBNAME</th>
-        <th>START</th>
-        <th>END</th>
-        <th>STATE</th>
-      </tr>
-      <% @processes.each do |app| %>
-        <tr>
-          <td><%= app.user %></td>
-          <td><a href="<%= url("show/") %><%= app.jobid %>"><%= app.jobid %></a></td>
-          <td><%= app.jobname %></td>
-          <td><%= app.start %></td>
-          <td><%= app.end %></td>
-          <td><%= app.state %></td>
-        </tr>
-      <% end %>
-    </table>
-  </div>
-<% else %>
-  <div>
-    <table class="table table-bordered">
-      <tr>
-        <th>JOBID</th>
-        <th>JOBNAME</th>
-        <th>PARTITION</th>
-        <th>ACCOUNT</th>
-        <th>CPU</th>
-        <th>STATE</th>
-        <th>EXIT CODE</th>
-      </tr>
-      <% @processes.each do |app| %>
-        <tr>
-          <td><a href="<%= url("show/") %><%= app.jobid %>"><%= app.jobid %></a></td>
-          <td><%= app.jobname %></td>
-          <td><%= app.partition %></td>
-          <td><%= app.account %></td>
-          <td><%= app.cpus %></td>
-          <td><%= app.state %></td>
-          <td><%= app.exit_code %></td>
-        </tr>
-      <% end %>
-    </table>
-  </div>
-<% end %>
+<table class="table table-bordered">
+  <tr>
+    <th>USER</th>
+    <th>JOBID</th>
+    <th>JOBNAME</th>
+    <th>START</th>
+    <th>END</th>
+    <th>STATE</th>
+  </tr>
+  <% @processes.each do |app| %>
+    <tr>
+      <td><%= app.user %></td>
+      <td><a href="<%= url("show/") %><%= app.jobid %>"><%= app.jobid %></a></td>
+      <td><%= app.jobname %></td>
+      <td><%= app.start %></td>
+      <td><%= app.end %></td>
+      <td><%= app.state %></td>
+    </tr>
+  <% end %>
+</table>
 
 
 
