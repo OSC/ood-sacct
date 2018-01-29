@@ -37,7 +37,7 @@ end
 
 # Define a route at the root '/' of the app.
 get '/' do
-  @start_date = params[:start_date] || Date.today.prev_day(7).to_datetime.strftime("%FT%R")
+  @start_date = params[:start_date] || Date.today.to_datetime.strftime("%FT%R")
   @end_date = params[:end_date] || DateTime.now.strftime("%FT%R")
   @command = CommandRange.new(@start_date, @end_date)
 
