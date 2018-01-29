@@ -1,5 +1,16 @@
 <h1><%= @message %></h1>
 
+Command:
+
+<pre>
+$ <%= @command %>
+</pre>
+
+
 Output generated: <%= Time.now %>
+
+<pre>
+<%= @output %>
+</pre>
 
 <a href="<%= url("/") %>" data-turbolinks-action="restore"><h3>Back</h3></a>
