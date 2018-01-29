@@ -13,18 +13,9 @@
   <script src="<%= url("/jquery-3.2.1/jquery-3.2.1.min.js") %>"></script>
   <script src="<%= url("/bootstrap-3.3.7/js/bootstrap.min.js") %>"></script>
   <script src="<%= url("/turbolinks-5.1.1/dist/turbolinks.js") %>"></script>
-  <script src="<%= url("/flatpickr-4.2.4/flatpickr.min.js") %>"></script>
 
-  <script>
-      $( document ).ready(function () {
-          $(".picker").flatpickr({
-              enableTime: true,
-              dateFormat: "Y-m-dTH:i",
-              altInput: true,
-              altFormat: "Y-m-d H:i"
-          });
-      });
-  </script>
+  <%# FIXME: flatpickr is cool but buggy with turbolinks %>
+  <%# <script src="<%= url("/flatpickr-4.2.4/flatpickr.min.js") %1>"></script> %>
 </head>
 <body>
 

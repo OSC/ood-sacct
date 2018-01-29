@@ -2,9 +2,8 @@
 
 <div class="pull-right">
   <form class="form-inline">
-    <!-- FIXME: should probably be using input type="date" -->
-    Start Date: <input class="picker form-control" type="text" name="start_date" value="<%= @start_date %>">
-    End Date: <input class="picker form-control" type="text" name="end_date" value="<%= @end_date %>">
+    Start Date: <input class="form-control" type="datetime-local" name="start_date" value="<%= @start_date %>">
+    End Date: <input class="form-control" type="datetime-local" name="end_date" value="<%= @end_date %>">
     <input class="btn btn-primary" type="submit">
   </form>
 </div>
@@ -37,6 +36,3 @@
     </tr>
   <% end %>
 </table>
-
-
-
