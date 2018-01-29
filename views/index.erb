@@ -1,31 +1,40 @@
 <h1><%= title %></h1>
 
-Output generated: <%= Time.now %>
+<div class="pull-right">
+  <form class="form-inline">
+    Start Date: <input class="form-control" type="datetime-local" name="start_date" value="<%= @start_date %>">
+    End Date: <input class="form-control" type="datetime-local" name="end_date" value="<%= @end_date %>">
+    <input class="btn btn-primary" type="submit">
+  </form>
+</div>
 
-<pre>
-$ <%= @command %>
-</pre>
+<div class="row">
+  <span>Output generated: <%= Time.now %></span>
+</div>
+
+<div class="row">
+  <pre><%= @command %></pre>
+
+  <p>Query generated <%= @processes.count %> results</p>
+</div>
 
 <table class="table table-bordered">
   <tr>
     <th>JOBID</th>
+    <th>USER</th>
     <th>JOBNAME</th>
-    <th>PARTITION</th>
-    <th>ACCOUNT</th>
-    <th>CPU</th>
+    <th>START</th>
+    <th>END</th>
     <th>STATE</th>
-    <th>EXIT CODE</th>
   </tr>
   <% @processes.each do |app| %>
-  <tr>
-    <td><%= app.jobid %></td>
-    <td><%= app.jobname %></td>
-    <td><%= app.partition %></td>
-    <td><%= app.account %></td>
-    <td><%= app.cpus %></td>
-    <td><%= app.state %></td>
-    <td><%= app.exit_code %></td>
-  </tr>
+    <tr>
+      <td><a href="<%= url("show/") %><%= app.jobid %>"><%= app.jobid %></a></td>
+      <td><%= app.user %></td>
+      <td><%= app.jobname %></td>
+      <td><%= app.start %></td>
+      <td><%= app.end %></td>
+      <td><%= app.state %></td>
+    </tr>
   <% end %>
-
 </table>

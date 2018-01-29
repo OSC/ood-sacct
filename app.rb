@@ -1,5 +1,7 @@
 require 'erubi'
 require './command'
+require './command_range'
+require 'date'
 
 set :erb, :escape_html => true
 
@@ -22,9 +24,23 @@ helpers do
   end
 end
 
+get '/show/:id' do
+  @id = params[:id]
+  @message = "Showing details for #{@id}"
+  @command = Command.new(@id)
+
+  @output, @error = @command.exec
+
+  # Render the view
+  erb :show
+end
+
 # Define a route at the root '/' of the app.
 get '/' do
-  @command = Command.new
+  @start_date = params[:start_date] || (DateTime.now.to_time - 3600).to_datetime.strftime("%FT%R")
+  @end_date = params[:end_date] || DateTime.now.strftime("%FT%R")
+  @command = CommandRange.new(@start_date, @end_date)
+
   @processes, @error = @command.exec
 
   # Render the view

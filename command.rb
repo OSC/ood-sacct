@@ -1,20 +1,19 @@
 require 'open3'
 
 class Command
+  attr_accessor :jobid
+
   def to_s
     # This command is specific to PSC
-    "/opt/packages/slurm/17.02.5/bin/sacct -a -P"
+    "/opt/packages/slurm/17.02.5/bin/sacct --long -j #{jobid}"
   end
 
-  JobInfo = Struct.new(:jobid, :jobname, :partition, :account, :cpus, :state, :exit_code)
+  def initialize(jobid)
+    @jobid = jobid
+  end
 
-  # Parse a string output from the `sacct` command and return an array of
-  # JobInfo objects, one per lines
   def parse(output)
-    lines = output.strip.split("\n").drop(1)
-    lines.map do |line|
-      JobInfo.new(*(line.split("|", 7)))
-    end
+    output
   end
 
   # Execute the command, and parse the output, returning and array of
@@ -22,15 +21,17 @@ class Command
   #
   # returns [Array<Array<JobInfo>, String] i.e.[info, error]
   def exec
-    processes, error = [], nil
+    output, error = "", nil
 
     stdout_str, stderr_str, status = Open3.capture3(to_s)
     if status.success?
-      processes = parse(stdout_str)
+      output = parse(stdout_str)
     else
       error = "Command '#{to_s}' exited with error: #{stderr_str}"
     end
 
-    [processes, error]
+    [output, error]
+  rescue => e
+    [output, e.message]
   end
 end
