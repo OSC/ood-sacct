@@ -9,8 +9,30 @@ $ <%= @command %>
 
 Output generated: <%= Time.now %>
 
-<pre>
-<%= @output %>
-</pre>
+<% @output.each do |job| %>
+
+  <div class="panel panel-default">
+    <div class="panel-heading"><%= job.JobID %></div>
+    <div class="panel-body">
+      <table class="table small">
+        <thead>
+        <tr>
+          <th></th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% job.each_pair do |k, v| %>
+        <tr>
+          <td><%= k %></td>
+          <td><%= v %></td>
+        </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+<% end %>
 
 <a href="<%= url("/") %>" data-turbolinks-action="restore"><h3>Back</h3></a>
