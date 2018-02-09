@@ -28,6 +28,7 @@
     <th>STATE</th>
   </tr>
   <% @processes.each do |app| %>
+    <% unless app.user.empty? %>
     <tr>
       <td><a href="<%= url("show/") %><%= app.jobid %>"><%= app.jobid %></a></td>
       <td><%= app.user %></td>
@@ -36,5 +37,6 @@
       <td><%= app.end %></td>
       <td><%= app.state %></td>
     </tr>
+    <% end %>
   <% end %>
 </table>
