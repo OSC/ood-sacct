@@ -37,8 +37,10 @@ end
 
 # Define a route at the root '/' of the app.
 get '/' do
-  @start_date = params[:start_date] || (DateTime.now.to_time - 3600).to_datetime.strftime("%FT%R")
-  @end_date = params[:end_date] || DateTime.now.strftime("%FT%R")
+  # Set the start date to 1 hour ago (3600) if the param is nil or empty
+  @start_date = params[:start_date].to_s != "" ? params[:start_date] : (DateTime.now.to_time - 3600).to_datetime.strftime("%FT%R")
+  # Set the end date to now if the param is nil or empty
+  @end_date = params[:end_date].to_s != "" ? params[:end_date] : DateTime.now.strftime("%FT%R")
   @command = CommandRange.new(@start_date, @end_date)
 
   @processes, @error = @command.exec
