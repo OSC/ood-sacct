@@ -22,6 +22,20 @@ helpers do
   def title
     "Completed Jobs"
   end
+
+  # Attempt to parse the client-provided date, if invalid, use the default
+  #
+  # @param date_string [String] A string that can be parsed into a DateTime object
+  # @param default [DateTime] A datetime object to be used as a default time
+  def parse_datestring(date_string, default = DateTime.now)
+    begin
+      date = DateTime.parse(date_string.to_s)
+    rescue
+      date = default
+    end
+    date.to_datetime.strftime("%FT%R")
+  end
+
 end
 
 get '/show/:id' do
@@ -37,10 +51,8 @@ end
 
 # Define a route at the root '/' of the app.
 get '/' do
-  # Set the start date to 1 hour ago (3600) if the param is nil or empty
-  @start_date = params[:start_date].to_s != "" ? params[:start_date] : (DateTime.now.to_time - 3600).to_datetime.strftime("%FT%R")
-  # Set the end date to now if the param is nil or empty
-  @end_date = params[:end_date].to_s != "" ? params[:end_date] : DateTime.now.strftime("%FT%R")
+  @start_date = parse_datestring(params[:start_date], DateTime.now.to_time - 3600)
+  @end_date = parse_datestring(params[:end_date])
   @command = CommandRange.new(@start_date, @end_date)
 
   @processes, @error = @command.exec
